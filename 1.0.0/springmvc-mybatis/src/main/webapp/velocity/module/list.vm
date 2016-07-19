@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>role</title>
+</head>
+<body>
+	<a href="show.do">新增</a> ${list.size()}<a href="/springmvc-mybatis/">主页</a>
+	<table>
+		<tr>
+			<td>seq</td>
+			<td>id</td>
+			<td>module_code</td>
+			<td>module_name</td>
+		</tr>
+		#foreach($t in $list)
+		<tr>
+			<td><a href="show.do?id=${t.moduleId}">${velocityCount}</a></td>
+			<td>${t.moduleId}</td>
+			<td>${t.moduleCode}</td>
+			<td>${t.moduleName}</td>
+		</tr>
+    	#end
+	</table>
+</body>
+</html>
