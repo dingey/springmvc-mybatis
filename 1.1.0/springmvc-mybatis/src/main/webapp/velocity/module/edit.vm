@@ -6,9 +6,9 @@
 </head>
 <body><a href="/springmvc-mybatis/">主页</a>
 	<form action="edit.do" method="post">
-		<input type="hidden" name="moduleId" value="${t.moduleId}"> <input
-			type="text" name="moduleName" value="${t.moduleName}"> <input
-			type="text" name="moduleCode" value="${t.moduleCode}"> <input
+		<input type="hidden" name="moduleId" value="$!{t.moduleId}"> <input
+			type="text" name="moduleName" value="$!{t.moduleName}"> <input
+			type="text" name="moduleCode" value="$!{t.moduleCode}"> <input
 			type="submit" value="提交">
 	</form>
 </body>
