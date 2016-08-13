@@ -21,18 +21,16 @@
 	<!-- </mvc:interceptor> -->
 	<!-- </mvc:interceptors> -->
 	<mvc:annotation-driven>
-		<!-- 解决返回String时乱码 -->
-		<mvc:message-converters register-defaults="true">
+		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-				<property name="supportedMediaTypes">
-					<list>
-						<value>text/plain;charset=UTF-8</value>
-						<value>text/html;charset=UTF-8</value>
-					</list>
-				</property>
+				<constructor-arg ref="utf8Charset" />
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	<bean id="utf8Charset" class="java.nio.charset.Charset"
+		factory-method="forName">
+		<constructor-arg value="UTF-8" />
+	</bean>
 	<!-- 配置JSP视图 -->
 	<bean id="internalResourceViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
