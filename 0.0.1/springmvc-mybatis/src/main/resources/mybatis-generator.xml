@@ -37,10 +37,10 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- 要生成哪些表 -->
-		<table tableName="module" domainObjectName="Module"
-			enableCountByExample="true" enableUpdateByExample="true"
-			enableDeleteByExample="true" enableSelectByExample="true"
-			selectByExampleQueryId="false"></table>
+<!-- 		<table tableName="module" domainObjectName="Module" -->
+<!-- 			enableCountByExample="true" enableUpdateByExample="true" -->
+<!-- 			enableDeleteByExample="true" enableSelectByExample="true" -->
+<!-- 			selectByExampleQueryId="false"></table> -->
 		<table tableName="person" domainObjectName="Person"
 			enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"

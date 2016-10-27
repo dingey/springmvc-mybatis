@@ -24,8 +24,8 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<span><a href="list.do?pageNum=${pageInfo.prePage}&pageSize=${pageInfo.pageSize}">上一页</a>&nbsp;
-			<a href="list.do?pageNum=${pageInfo.nextPage}&pageSize=${pageInfo.pageSize}">下一页</a>&nbsp;
+	<span><a href="list.htm?pageNum=${pageInfo.prePage}&pageSize=${pageInfo.pageSize}">上一页</a>&nbsp;
+			<a href="list.htm?pageNum=${pageInfo.nextPage}&pageSize=${pageInfo.pageSize}">下一页</a>&nbsp;
 			当前显示${list.size()}条记录&nbsp;共${pageInfo.total}条,${pageInfo.pages}页</span>
 </body>
 </html>
