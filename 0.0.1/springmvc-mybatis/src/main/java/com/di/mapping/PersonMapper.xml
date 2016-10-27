@@ -1,33 +1,112 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.di.mapper.PersonMapper" >
-  <resultMap id="BaseResultMap" type="com.di.model.Person" >
-    <id column="person_id" property="personId" jdbcType="INTEGER" />
-    <result column="person_name" property="personName" jdbcType="VARCHAR" />
-    <result column="person_age" property="personAge" jdbcType="INTEGER" />
-    <result column="person_sex" property="personSex" jdbcType="VARCHAR" />
-    <result column="birth_date" property="birthDate" jdbcType="TIMESTAMP" />
-    <result column="province" property="province" jdbcType="VARCHAR" />
-    <result column="city" property="city" jdbcType="VARCHAR" />
-    <result column="region" property="region" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.di.mapper.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.di.model.Person">
+    <id column="person_id" jdbcType="INTEGER" property="personId" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="person_age" jdbcType="INTEGER" property="personAge" />
+    <result column="person_sex" jdbcType="VARCHAR" property="personSex" />
+    <result column="birth_date" jdbcType="TIMESTAMP" property="birthDate" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="region" jdbcType="VARCHAR" property="region" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
     person_id, person_name, person_age, person_sex, birth_date, province, city, region, 
     address, mobile_phone
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByExample" parameterType="com.di.model.PersonExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from person
     where person_id = #{personId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from person
     where person_id = #{personId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.di.model.Person" >
+  <delete id="deleteByExample" parameterType="com.di.model.PersonExample">
+    delete from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.di.model.Person">
     insert into person (person_id, person_name, person_age, 
       person_sex, birth_date, province, 
       city, region, address, 
@@ -37,107 +116,455 @@
       #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{mobilePhone,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.di.model.Person" >
+  <insert id="insertSelective" parameterType="com.di.model.Person">
     insert into person
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="personId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
         person_id,
       </if>
-      <if test="personName != null" >
+      <if test="personName != null">
         person_name,
       </if>
-      <if test="personAge != null" >
+      <if test="personAge != null">
         person_age,
       </if>
-      <if test="personSex != null" >
+      <if test="personSex != null">
         person_sex,
       </if>
-      <if test="birthDate != null" >
+      <if test="birthDate != null">
         birth_date,
       </if>
-      <if test="province != null" >
+      <if test="province != null">
         province,
       </if>
-      <if test="city != null" >
+      <if test="city != null">
         city,
       </if>
-      <if test="region != null" >
+      <if test="region != null">
         region,
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         address,
       </if>
-      <if test="mobilePhone != null" >
+      <if test="mobilePhone != null">
         mobile_phone,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="personId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
         #{personId,jdbcType=INTEGER},
       </if>
-      <if test="personName != null" >
+      <if test="personName != null">
         #{personName,jdbcType=VARCHAR},
       </if>
-      <if test="personAge != null" >
+      <if test="personAge != null">
         #{personAge,jdbcType=INTEGER},
       </if>
-      <if test="personSex != null" >
+      <if test="personSex != null">
         #{personSex,jdbcType=VARCHAR},
       </if>
-      <if test="birthDate != null" >
+      <if test="birthDate != null">
         #{birthDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="province != null" >
+      <if test="province != null">
         #{province,jdbcType=VARCHAR},
       </if>
-      <if test="city != null" >
+      <if test="city != null">
         #{city,jdbcType=VARCHAR},
       </if>
-      <if test="region != null" >
+      <if test="region != null">
         #{region,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="mobilePhone != null" >
+      <if test="mobilePhone != null">
         #{mobilePhone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.di.model.Person" >
+  <select id="countByExample" parameterType="com.di.model.PersonExample" resultType="java.lang.Integer">
+    select count(*) from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
     update person
-    <set >
-      <if test="personName != null" >
+    <set>
+      <if test="record.personId != null">
+        person_id = #{record.personId,jdbcType=INTEGER},
+      </if>
+      <if test="record.personName != null">
+        person_name = #{record.personName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personAge != null">
+        person_age = #{record.personAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.personSex != null">
+        person_sex = #{record.personSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthDate != null">
+        birth_date = #{record.birthDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null">
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilePhone != null">
+        mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update person
+    set person_id = #{record.personId,jdbcType=INTEGER},
+      person_name = #{record.personName,jdbcType=VARCHAR},
+      person_age = #{record.personAge,jdbcType=INTEGER},
+      person_sex = #{record.personSex,jdbcType=VARCHAR},
+      birth_date = #{record.birthDate,jdbcType=TIMESTAMP},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.di.model.Person">
+    update person
+    <set>
+      <if test="personName != null">
         person_name = #{personName,jdbcType=VARCHAR},
       </if>
-      <if test="personAge != null" >
+      <if test="personAge != null">
         person_age = #{personAge,jdbcType=INTEGER},
       </if>
-      <if test="personSex != null" >
+      <if test="personSex != null">
         person_sex = #{personSex,jdbcType=VARCHAR},
       </if>
-      <if test="birthDate != null" >
+      <if test="birthDate != null">
         birth_date = #{birthDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="province != null" >
+      <if test="province != null">
         province = #{province,jdbcType=VARCHAR},
       </if>
-      <if test="city != null" >
+      <if test="city != null">
         city = #{city,jdbcType=VARCHAR},
       </if>
-      <if test="region != null" >
+      <if test="region != null">
         region = #{region,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
+      <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="mobilePhone != null" >
+      <if test="mobilePhone != null">
         mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
       </if>
     </set>
     where person_id = #{personId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.di.model.Person" >
+  <update id="updateByPrimaryKey" parameterType="com.di.model.Person">
+    update person
+    set person_name = #{personName,jdbcType=VARCHAR},
+      person_age = #{personAge,jdbcType=INTEGER},
+      person_sex = #{personSex,jdbcType=VARCHAR},
+      birth_date = #{birthDate,jdbcType=TIMESTAMP},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+    where person_id = #{personId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.di.model.Person">
+    <id column="person_id" jdbcType="INTEGER" property="personId" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="person_age" jdbcType="INTEGER" property="personAge" />
+    <result column="person_sex" jdbcType="VARCHAR" property="personSex" />
+    <result column="birth_date" jdbcType="TIMESTAMP" property="birthDate" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="region" jdbcType="VARCHAR" property="region" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    person_id, person_name, person_age, person_sex, birth_date, province, city, region, 
+    address, mobile_phone
+  </sql>
+  <select id="selectByExample" parameterType="com.di.model.PersonExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from person
+    where person_id = #{personId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from person
+    where person_id = #{personId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.di.model.PersonExample">
+    delete from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.di.model.Person">
+    insert into person (person_id, person_name, person_age, 
+      person_sex, birth_date, province, 
+      city, region, address, 
+      mobile_phone)
+    values (#{personId,jdbcType=INTEGER}, #{personName,jdbcType=VARCHAR}, #{personAge,jdbcType=INTEGER}, 
+      #{personSex,jdbcType=VARCHAR}, #{birthDate,jdbcType=TIMESTAMP}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.di.model.Person">
+    insert into person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
+        person_id,
+      </if>
+      <if test="personName != null">
+        person_name,
+      </if>
+      <if test="personAge != null">
+        person_age,
+      </if>
+      <if test="personSex != null">
+        person_sex,
+      </if>
+      <if test="birthDate != null">
+        birth_date,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="region != null">
+        region,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
+        #{personId,jdbcType=INTEGER},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personAge != null">
+        #{personAge,jdbcType=INTEGER},
+      </if>
+      <if test="personSex != null">
+        #{personSex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDate != null">
+        #{birthDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.di.model.PersonExample" resultType="java.lang.Integer">
+    select count(*) from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update person
+    <set>
+      <if test="record.personId != null">
+        person_id = #{record.personId,jdbcType=INTEGER},
+      </if>
+      <if test="record.personName != null">
+        person_name = #{record.personName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personAge != null">
+        person_age = #{record.personAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.personSex != null">
+        person_sex = #{record.personSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthDate != null">
+        birth_date = #{record.birthDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null">
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilePhone != null">
+        mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update person
+    set person_id = #{record.personId,jdbcType=INTEGER},
+      person_name = #{record.personName,jdbcType=VARCHAR},
+      person_age = #{record.personAge,jdbcType=INTEGER},
+      person_sex = #{record.personSex,jdbcType=VARCHAR},
+      birth_date = #{record.birthDate,jdbcType=TIMESTAMP},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.di.model.Person">
+    update person
+    <set>
+      <if test="personName != null">
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personAge != null">
+        person_age = #{personAge,jdbcType=INTEGER},
+      </if>
+      <if test="personSex != null">
+        person_sex = #{personSex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDate != null">
+        birth_date = #{birthDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where person_id = #{personId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.di.model.Person">
     update person
     set person_name = #{personName,jdbcType=VARCHAR},
       person_age = #{personAge,jdbcType=INTEGER},

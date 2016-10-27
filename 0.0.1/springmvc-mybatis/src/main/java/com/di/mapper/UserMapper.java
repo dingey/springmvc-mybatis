@@ -1,7 +1,8 @@
 package com.di.mapper;
 
 import com.di.model.User;
+import com.di.model.UserExample;
 
-public interface UserMapper extends AbstractMapper<User> {
-	User selectUserByUsername(String userName);
+public interface UserMapper extends AbstractMapper<User, UserExample> {
+
 }
