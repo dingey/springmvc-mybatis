@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Full Layout - jQuery EasyUI Demo</title>
-	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="themes/bootstrap/easyui.css">
 	<link rel="stylesheet" type="text/css" href="themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="demo.css">
 	<script type="text/javascript" src="jquery.min.js"></script>
@@ -25,6 +25,15 @@ $('#dg').datagrid('load', {
     address: 'ho'
 });
 $('#dg').datagrid('reload');
+</script>
+<script type="text/javascript">
+$.getJSON("getstyle.json",function(data){
+	console.log(" success: "+data.success);
+	var u0=$("link").attr("href");
+	var u1="themes/"+data.style+u0.substring(u0.indexOf("/easyui.css"));
+	console.log(" u1: "+u1);
+	$("link").attr("href",u1);
+});
 </script>
 </body>
 </html>
