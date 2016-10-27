@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.di.bo.BusinessObject;
 import com.di.controller.initbinder.DateBinder;
@@ -29,13 +28,13 @@ public abstract class AbstractController<T, E> {
 	}
 
 	@RequestMapping(value = "/list.htm")
-	public String list(@RequestParam(required = false, defaultValue = "1") int pageNum,
-			@RequestParam(required = false, defaultValue = "10") int pageSize, Model model) {
+	public String list(BusinessObject bo, Model model) {
+		PageHelper.startPage(bo.getPageNum(), bo.getPageSize());
 		PageInfo<T> pageInfo = new PageInfo<T>(this.getAbstractService().selectByExample(this.getExample()));
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("list", pageInfo.getList());
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageNum", bo.getPageNum());
+		model.addAttribute("pageSize", bo.getPageSize());
 		return getPrefix() + "/list";
 	}
 
