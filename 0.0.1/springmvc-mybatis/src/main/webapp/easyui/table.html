@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Full Layout - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.easyui.min.js"></script>
+</head>
+<body>
+<table id="dg"></table>
+<script type="text/javascript">
+$('#dg').datagrid({
+    url:'datagrid_data.json',
+    columns:[[
+        {field:'code',title:'Code',width:100},
+        {field:'name',title:'Name',width:100},
+        {field:'price',title:'Price',width:100,align:'right'}
+    ]]
+});
+$('#dg').datagrid('load', {
+    name: 'easyui',
+    address: 'ho'
+});
+$('#dg').datagrid('reload');
+</script>
+</body>
+</html>
