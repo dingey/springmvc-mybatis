@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,14 +18,14 @@ import com.di.service.UserService;
 
 @Controller
 @RequestMapping(value = "/user")
-public class UserController extends AbstractController<User,UserExample> {
+public class UserController extends AbstractController<User, UserExample> {
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private ModuleService moduleService;
 
 	@Override
-	public AbstractService<User,UserExample> getAbstractService() {
+	public AbstractService<User, UserExample> getAbstractService() {
 		return userService;
 	}
 
@@ -34,7 +33,6 @@ public class UserController extends AbstractController<User,UserExample> {
 	public String getNamespace() {
 		return "user";
 	}
-
 
 	@RequestMapping(value = "login.do")
 	public ModelAndView login(HttpServletRequest req, String userName, String password) {
