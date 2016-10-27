@@ -5,23 +5,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.di.model.Module;
+import com.di.model.ModuleExample;
 import com.di.service.AbstractService;
 import com.di.service.ModuleService;
 
 @Controller
 @RequestMapping(value = "/module")
-public class ModuleController extends AbstractController<Module> {
+public class ModuleController extends AbstractController<Module,ModuleExample> {
 	@Autowired
 	private ModuleService ModuleService;
 
 	@Override
-	public AbstractService<Module> getAbstractService() {
+	public AbstractService<Module,ModuleExample> getAbstractService() {
 		return ModuleService;
 	}
 
 	@Override
 	public String getNamespace() {
 		return "module";
+	}
+
+	@Override
+	public ModuleExample getExample() {
+		return new ModuleExample();
 	}
 
 }

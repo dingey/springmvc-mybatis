@@ -2,14 +2,12 @@ package com.di.controller;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import com.di.bo.BusinessObject;
 import com.di.controller.initbinder.DateBinder;
 import com.di.service.AbstractService;
@@ -33,9 +31,9 @@ public abstract class AbstractController<T, E> {
 	@RequestMapping(value = "/list.htm")
 	public String list(@RequestParam(required = false, defaultValue = "1") int pageNum,
 			@RequestParam(required = false, defaultValue = "10") int pageSize, Model model) {
-		List<T> list = getAbstractService().selectAll(pageNum, pageSize);
-		model.addAttribute("pageInfo", new PageInfo<T>(list));
-		model.addAttribute("list", list);
+		PageInfo<T> pageInfo = new PageInfo<T>(this.getAbstractService().selectByExample(this.getExample()));
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("list", pageInfo.getList());
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageSize", pageSize);
 		return getPrefix() + "/list";
@@ -45,8 +43,8 @@ public abstract class AbstractController<T, E> {
 	@RequestMapping(path = { "/list.json" })
 	public String list(BusinessObject bo) {
 		PageHelper.startPage(bo.getPageNum(), bo.getPageSize());
-		PageInfo pageInfo = new PageInfo(this.getAbstractService().selectByExample(this.getExample()));
-		HashMap m = new HashMap();
+		PageInfo<T> pageInfo = new PageInfo<T>(this.getAbstractService().selectByExample(this.getExample()));
+		HashMap<String, Object> m = new HashMap<String, Object>();
 		m.put("total", Long.valueOf(pageInfo.getTotal()));
 		m.put("rows", pageInfo.getList());
 		return JacksonUtil.pojoToJson(m);
@@ -54,7 +52,7 @@ public abstract class AbstractController<T, E> {
 
 	@RequestMapping(value = "/show.htm")
 	public String show(Integer id, Model model) {
-		model.addAttribute("t", getAbstractService().select(id));
+		model.addAttribute("t", getAbstractService().selectByPrimaryKey(id));
 		return getNamespace() + "/edit";
 	}
 
@@ -65,7 +63,7 @@ public abstract class AbstractController<T, E> {
 
 	@RequestMapping(value = "/edit.htm")
 	public String edit(T t) {
-		int i = getAbstractService().update(t);
+		int i = getAbstractService().updateByPrimaryKeySelective(t);
 		if (i == 0)
 			i = getAbstractService().insert(t);
 		return "redirect:/" + getPrefix() + "/list.htm";
@@ -73,11 +71,11 @@ public abstract class AbstractController<T, E> {
 
 	@RequestMapping(value = "/del.htm")
 	public String del(Integer id) {
-		getAbstractService().delete(id);
+		getAbstractService().deleteByPrimaryKey(id);
 		return "redirect:/" + getPrefix() + "/list.htm";
 	}
 
-	public abstract AbstractService<T> getAbstractService();
+	public abstract AbstractService<T, E> getAbstractService();
 
 	public abstract String getNamespace();
 

@@ -1,5 +1,7 @@
 package com.di.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,9 @@ public class ModuleService extends AbstractService<Module, ModuleExample> {
 	@Override
 	public AbstractMapper<Module, ModuleExample> getAbstractMapper() {
 		return moduleMapper;
+	}
+
+	public List<Module> selectModuleByUserId(Integer userId) {
+		return moduleMapper.selectModuleByUserId(userId);
 	}
 }
