@@ -5,7 +5,7 @@
 <title>edit</title>
 </head>
 <body><a href="/springmvc-mybatis/">主页</a>
-	<form action="edit.do" method="post">
+	<form action="edit.htm" method="post">
 		<input type="hidden" name="moduleId" value="${t.moduleId}"> <input
 			type="text" name="moduleName" value="${t.moduleName}"> <input
 			type="text" name="moduleCode" value="${t.moduleCode}"> <input

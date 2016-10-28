@@ -8,7 +8,7 @@
 </head>
 <body>
 	<a href="/springmvc-mybatis/">主页</a>
-	<form action="edit.do" method="post">
+	<form action="edit.htm" method="post">
 		<input type="hidden" name="userId" value="${t.userId}"> <input
 			type="text" name="userName" value="${t.userName}"> <input
 			type="text" name="password" value="${t.password}"> <input
