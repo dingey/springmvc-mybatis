@@ -46,11 +46,8 @@
 	</table>
 	<script type="text/javascript">
 		function doSearch() {
-			// 			$('#tt').datagrid('load','datagrid_data.json?' + $("#query").serialize());
-			$('#tt').datagrid('load', {
-				'userId' : $("input[name=userId]").val(),
-				'userName' : $("input[name=userName]").val()
-			});
+			$('#tt').datagrid('load',
+					'datagrid_data.json?' + $("#query").serialize());
 		}
 	</script>
 </body>
