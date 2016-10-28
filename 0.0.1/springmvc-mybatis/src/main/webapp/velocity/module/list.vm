@@ -14,7 +14,7 @@
 		</tr>
 		#foreach($t in $list)
 		<tr>
-			<td><a href="show.do?id=${t.moduleId}">${velocityCount}</a></td>
+			<td><a href="show.htm?id=${t.moduleId}">${velocityCount}</a></td>
 			<td>${t.moduleId}</td>
 			<td>${t.moduleCode}</td>
 			<td>${t.moduleName}</td>

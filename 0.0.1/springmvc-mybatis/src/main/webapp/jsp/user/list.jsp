@@ -18,7 +18,7 @@
 		</tr>
 		<c:forEach items="${list}" var="t" varStatus="seq">
 			<tr>
-				<td><a href="show.do?id=${t.userId}">${seq.index+1}</a></td>
+				<td><a href="show.htm?id=${t.userId}">${seq.index+1}</a></td>
 				<td>${t.userId}</td>
 				<td>${t.userName}</td>
 			</tr>

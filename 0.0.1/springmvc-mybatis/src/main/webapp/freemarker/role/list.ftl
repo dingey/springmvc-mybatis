@@ -15,7 +15,7 @@
 		</tr>
 		<#list list as t>
 			<tr>
-				<td><a href="show.do?id=${t.roleId}">${t_index+1}</a></td>
+				<td><a href="show.htm?id=${t.roleId}">${t_index+1}</a></td>
 				<td>${t.roleId}</td>
 				<td>${t.roleName}</td>
 				<td>${t.roleDesc}</td>
