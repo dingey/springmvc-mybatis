@@ -11,7 +11,7 @@
     http://www.springframework.org/schema/context/spring-context-4.3.xsd
 	http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-4.3.xsd ">
-
+	<import resource="spring-shiro.xml" />
 	<context:property-placeholder location="classpath:jdbc.properties" />
 	<aop:aspectj-autoproxy />
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
