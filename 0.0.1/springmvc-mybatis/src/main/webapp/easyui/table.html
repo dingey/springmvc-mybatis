@@ -1,51 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Full Layout - jQuery EasyUI Demo</title>
-	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="demo.css">
-	<script type="text/javascript" src="jquery.min.js"></script>
-	<script type="text/javascript" src="jquery.easyui.min.js"></script>
+<meta charset="UTF-8">
+<title>Full Layout - jQuery EasyUI Demo</title>
+<link rel="stylesheet" type="text/css"
+	href="/springmvc-mybatis/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/springmvc-mybatis/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/springmvc-mybatis/easyui/demo.css">
+<script type="text/javascript"
+	src="/springmvc-mybatis/easyui/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/springmvc-mybatis/easyui/jquery.easyui.min.js"></script>
 </head>
 <body>
-<div id="tb" style="padding:3px">
-	<span>userId:</span>
-	<input id="userId" style="line-height:26px;border:1px solid #ccc">
-	<span>userName:</span>
-	<input id="userName" style="line-height:26px;border:1px solid #ccc">
-	<a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">Search</a>
-</div>
-<table id="tt" class="easyui-datagrid" style="width:600px;height:250px"
-		url="datagrid_data.json" toolbar="#tb"
-		title="Load Data" iconCls="icon-save"
-		rownumbers="true" pagination="true">
-	<thead>
-		<tr>
-			<th field="ck" checkbox="true"></th>
-			<th field="userId" width="80">userId</th>
-			<th field="userName" width="80" align="right">userName</th>
-			<th field="remark" width="60" align="center">remark</th>
-		</tr>
-	</thead>
-</table>
-<script type="text/javascript">
-function doSearch(){
-	$('#tt').datagrid('load',{
-		userId: $('#userId').val(),
-		userName: $('#userName').val()
-	});
-}
-</script>
-<script type="text/javascript">
-$.getJSON("getstyle.json",function(data){
-	console.log(" success: "+data.success);
-	var u0=$("link").attr("href");
-	var u1="themes/"+data.style+u0.substring(u0.indexOf("/easyui.css"));
-	console.log(" u1: "+u1);
-	$("link").attr("href",u1);
-});
-</script>
+	<div id="tb" style="padding: 3px">
+		<div style="margin-bottom: 5px">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit"
+				plain="true"></a> <a href="#" class="easyui-linkbutton"
+				iconCls="icon-save" plain="true"></a> <a href="#"
+				class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a> <a
+				href="#" class="easyui-linkbutton" iconCls="icon-remove"
+				plain="true"></a>
+		</div>
+		<div>
+			<form id="query">
+				<span>userId:</span> <input name="userId"
+					style="line-height: 20px; border: 1px solid #ccc"> <span>userName:</span>
+				<input name="userName"
+					style="line-height: 20px; border: 1px solid #ccc"> <a
+					href="#" class="easyui-linkbutton" onclick="doSearch()"
+					iconCls="icon-search">Search</a>
+			</form>
+		</div>
+	</div>
+	<table id="tt" class="easyui-datagrid"
+		style="width: 600px; height: 250px" url="datagrid_data.json"
+		toolbar="#tb" title="Load Data" iconCls="icon-save" rownumbers="true"
+		pagination="true">
+		<thead>
+			<tr>
+				<th field="ck" checkbox="true"></th>
+				<th field="userId" width="80">userId</th>
+				<th field="userName" width="80" align="right">userName</th>
+				<th field="remark" width="60" align="center">remark</th>
+			</tr>
+		</thead>
+	</table>
+	<script type="text/javascript">
+		function doSearch() {
+			$('#tt').datagrid('load',
+					'datagrid_data.json?' + $("#query").serialize());
+		}
+	</script>
 </body>
 </html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>DataGrid Complex Toolbar - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>DataGrid Complex Toolbar</h2>
+	<p>The DataGrid toolbar can be defined from a <div/> markup, so you can define the layout of toolbar easily.</p>
+	<div style="margin:20px 0;"></div>
+	<table class="easyui-datagrid" title="DataGrid Complex Toolbar" style="width:700px;height:250px"
+			data-options="rownumbers:true,singleSelect:false,url:'datagrid_data.json',method:'get',toolbar:'#tb'">
+		<thead>
+			<tr>
+				<th field="ck" checkbox="true"></th>
+				<th data-options="field:'userId',width:100">userId</th>
+				<th data-options="field:'userName',width:80,align:'right'">userName</th>
+				<th data-options="field:'status',width:60,align:'center'">Status</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="tb" style="padding:5px;height:auto">
+		<div style="margin-bottom:5px">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+		</div>
+		<div>
+			userId:<input id="userId" style="line-height: 18px; border: 1px solid #ccc"> 
+			userName:<input id="userName" style="line-height: 18px; border: 1px solid #ccc"> 
+			<a href="#" class="easyui-linkbutton" onclick="doSearch()" iconCls="icon-search">Search</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function doSearch() {
+			$('#tt').datagrid('load', {
+				userId : $('#userId').val(),
+				userName : $('#userName').val()
+			});
+		}		
+	</script>
+</body>
+</html>

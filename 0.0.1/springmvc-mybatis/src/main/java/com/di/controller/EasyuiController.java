@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.di.bo.UserBo;
 import com.di.model.User;
 import com.di.model.UserExample;
 import com.di.service.UserService;
@@ -56,10 +57,9 @@ public class EasyuiController {
 
 	@ResponseBody
 	@RequestMapping(path = "/datagrid_data.json")
-	public Object datagrid_data(String callback, @RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "10") int rows, String userName) {
+	public Object datagrid_data(UserBo bo) {
 		HashMap<String, Object> m = new HashMap<>();
-		PageInfo<User> pageInfo = userService.selectPagerByExample(new UserExample(), page, rows);
+		PageInfo<User> pageInfo = userService.findPagerByBusinessObject(bo);
 		m.put("rows", pageInfo.getList());
 		m.put("total", pageInfo.getTotal());
 		return m;
