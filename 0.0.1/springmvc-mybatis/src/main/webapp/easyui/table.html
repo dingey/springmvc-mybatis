@@ -39,20 +39,23 @@
 	<table id="tt" class="easyui-datagrid"
 		style="width: 100%; min-height: 360px;" url="datagrid_data.json"
 		toolbar="#tb" title="Load Data" iconCls="icon-save" rownumbers="true"
-		pagination="true">
+		pagination="true" data-options="remoteSort:false">
 		<thead>
 			<tr>
 				<th field="ck" checkbox="true"></th>
-				<th field="userId" width="80">userId</th>
-				<th field="userName" width="80" align="right">userName</th>
+				<th field="userId" width="80" sortable="true">userId</th>
+				<th field="userName" width="80" align="right" sortable="true">userName</th>
 				<th field="remark" width="60" align="center">remark</th>
 			</tr>
 		</thead>
 	</table>
 	<script type="text/javascript">
 		function doSearch() {
-			$('#tt').datagrid('load',
-					'datagrid_data.json?' + $("#query").serialize());
+// 			$('#tt').datagrid('load','datagrid_data.json?' + $("#query").serialize());
+			$('#tt').datagrid('load',{
+				'userId':$("input[name=userId]").val(),
+				'userName':$("input[name=userName]").val()
+			});
 		}
 	</script>
 </body>
