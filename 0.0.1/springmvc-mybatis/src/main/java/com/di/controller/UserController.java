@@ -34,7 +34,7 @@ public class UserController extends AbstractController<User, UserExample> {
 		return "user";
 	}
 
-	@RequestMapping(value = "login.do")
+	@RequestMapping(value = "login.htm")
 	public ModelAndView login(HttpServletRequest req, String userName, String password) {
 		User u = userService.selectUserByUsername(userName);
 		u = userService.selectByPrimaryKey(1);

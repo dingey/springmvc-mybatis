@@ -8,7 +8,7 @@
 <title>user</title>
 </head>
 <body>
-	<a href="add.do">新增</a>
+	<a href="add.htm">新增</a>
 	<a href="/springmvc-mybatis/">主页</a>
 	<table>
 		<tr>

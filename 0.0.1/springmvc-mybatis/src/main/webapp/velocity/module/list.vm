@@ -4,7 +4,7 @@
 <title>role</title>
 </head>
 <body>
-	<a href="show.do">新增</a>  <a href="/springmvc-mybatis/">主页</a>
+	<a href="show.htm">新增</a>  <a href="/springmvc-mybatis/">主页</a>
 	<table>
 		<tr>
 			<td>seq</td>

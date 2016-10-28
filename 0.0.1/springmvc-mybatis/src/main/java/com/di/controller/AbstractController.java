@@ -55,6 +55,12 @@ public abstract class AbstractController<T, E> {
 		return getNamespace() + "/edit";
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/show.json")
+	public String show(Integer id) {
+		return JacksonUtil.pojoToJson(getAbstractService().selectByPrimaryKey(id));
+	}
+
 	@RequestMapping(value = "/add.htm")
 	public String add() {
 		return getNamespace() + "/edit";
@@ -68,10 +74,29 @@ public abstract class AbstractController<T, E> {
 		return "redirect:/" + getPrefix() + "/list.htm";
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/edit.json")
+	public String editjson(T t) {
+		int i = getAbstractService().updateByPrimaryKeySelective(t);
+		if (i == 0)
+			i = getAbstractService().insert(t);
+		HashMap<String, Object> m = new HashMap<String, Object>();
+		m.put("success", true);
+		return JacksonUtil.pojoToJson(m);
+	}
+
 	@RequestMapping(value = "/del.htm")
 	public String del(Integer id) {
 		getAbstractService().deleteByPrimaryKey(id);
 		return "redirect:/" + getPrefix() + "/list.htm";
+	}
+
+	@RequestMapping(value = "/del.json")
+	public String deljson(Integer id) {
+		int i = getAbstractService().deleteByPrimaryKey(id);
+		HashMap<String, Object> m = new HashMap<String, Object>();
+		m.put("success", i > 0);
+		return JacksonUtil.pojoToJson(m);
 	}
 
 	public abstract AbstractService<T, E> getAbstractService();
