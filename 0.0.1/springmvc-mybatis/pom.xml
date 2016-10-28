@@ -5,14 +5,14 @@
 	<artifactId>springmvc-mybatis</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>fm Maven Webapp</name>
+	<name>Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<junit.version>4.10</junit.version>
 		<log4j.version>1.2.16</log4j.version>
 		<servlet.version>3.1.0</servlet.version>
 		<freemarker.version>2.3.23</freemarker.version>
-		<spring.version>4.3.1.RELEASE</spring.version>
+		<spring.version>4.2.8.RELEASE</spring.version>
 		<druid.version>1.0.20</druid.version>
 		<mybatis.version>3.2.8</mybatis.version>
 		<slf4j.version>1.6.2</slf4j.version>
@@ -175,7 +175,7 @@
 		<dependency>
 			<groupId>com.di</groupId>
 			<artifactId>toolkit</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1-RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>

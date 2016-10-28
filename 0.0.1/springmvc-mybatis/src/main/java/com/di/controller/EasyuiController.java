@@ -20,11 +20,11 @@ import com.di.toolkit.JacksonUtil;
 public class EasyuiController {
 	@ResponseBody
 	@RequestMapping(path = "/getstyle.json")
-	public String getStyle(HttpSession session) {
+	public Object getStyle(HttpSession session) {
 		String style = (String) session.getAttribute("style");
 		HashMap<String, Object> m = new HashMap<>();
 		m.put("style", style);
-		return JacksonUtil.pojoToJson(m);
+		return m;
 	}
 
 	@ResponseBody
@@ -34,5 +34,14 @@ public class EasyuiController {
 		HashMap<String, Object> m = new HashMap<>();
 		m.put("success", true);
 		return JacksonUtil.pojoToJson(m);
+	}
+
+	@ResponseBody
+	@RequestMapping(path = "/jsonp.json")
+	public String jsonp(String callback) {
+		HashMap<String, Object> m = new HashMap<>();
+		m.put("success", true);
+		String res = callback + "(" + JacksonUtil.pojoToJson(m) + ")";
+		return res;
 	}
 }
