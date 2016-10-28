@@ -14,7 +14,7 @@
 <script type="text/javascript"
 	src="/springmvc-mybatis/easyui/jquery.easyui.min.js"></script>
 </head>
-<body>
+<body style="padding: 4px;">
 	<div id="tb" style="padding: 3px">
 		<div style="margin-bottom: 5px">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 	<table id="tt" class="easyui-datagrid"
-		style="width: 600px; height: 250px" url="datagrid_data.json"
+		style="width: 100%; min-height: 360px;" url="datagrid_data.json"
 		toolbar="#tb" title="Load Data" iconCls="icon-save" rownumbers="true"
 		pagination="true">
 		<thead>
