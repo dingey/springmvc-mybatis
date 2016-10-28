@@ -1,13 +1,15 @@
 package com.di.model;
 
+import java.util.Date;
+
 public class User {
     private Integer userId;
 
     private String userName;
 
-    private String password;
+    private Date createTime;
 
-    private Integer personId;
+    private String password;
 
     public Integer getUserId() {
         return userId;
@@ -25,19 +27,19 @@ public class User {
         this.userName = userName == null ? null : userName.trim();
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public Integer getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
     }
 }

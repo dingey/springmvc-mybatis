@@ -10,21 +10,33 @@
 	<script type="text/javascript" src="jquery.easyui.min.js"></script>
 </head>
 <body>
-<table id="dg"></table>
+<div id="tb" style="padding:3px">
+	<span>userId:</span>
+	<input id="userId" style="line-height:26px;border:1px solid #ccc">
+	<span>userName:</span>
+	<input id="userName" style="line-height:26px;border:1px solid #ccc">
+	<a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">Search</a>
+</div>
+<table id="tt" class="easyui-datagrid" style="width:600px;height:250px"
+		url="datagrid_data.json" toolbar="#tb"
+		title="Load Data" iconCls="icon-save"
+		rownumbers="true" pagination="true">
+	<thead>
+		<tr>
+			<th field="ck" checkbox="true"></th>
+			<th field="userId" width="80">userId</th>
+			<th field="userName" width="80" align="right">userName</th>
+			<th field="remark" width="60" align="center">remark</th>
+		</tr>
+	</thead>
+</table>
 <script type="text/javascript">
-$('#dg').datagrid({
-    url:'datagrid_data.json',
-    columns:[[
-        {field:'code',title:'Code',width:100},
-        {field:'name',title:'Name',width:100},
-        {field:'price',title:'Price',width:100,align:'right'}
-    ]]
-});
-$('#dg').datagrid('load', {
-    name: 'easyui',
-    address: 'ho'
-});
-$('#dg').datagrid('reload');
+function doSearch(){
+	$('#tt').datagrid('load',{
+		userId: $('#userId').val(),
+		userName: $('#userName').val()
+	});
+}
 </script>
 <script type="text/javascript">
 $.getJSON("getstyle.json",function(data){

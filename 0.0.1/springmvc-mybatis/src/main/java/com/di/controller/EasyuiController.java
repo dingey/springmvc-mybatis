@@ -1,14 +1,20 @@
 package com.di.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.di.model.User;
+import com.di.model.UserExample;
+import com.di.service.UserService;
 import com.di.toolkit.JacksonUtil;
+import com.github.pagehelper.PageInfo;
 
 /**
  * @author di:
@@ -18,12 +24,15 @@ import com.di.toolkit.JacksonUtil;
 @Controller
 @RequestMapping(path = "/easyui")
 public class EasyuiController {
+	@Autowired
+	private UserService userService;
+
 	@ResponseBody
 	@RequestMapping(path = "/getstyle.json")
 	public Object getStyle(HttpSession session) {
 		String style = (String) session.getAttribute("style");
 		HashMap<String, Object> m = new HashMap<>();
-		m.put("style", style);
+		m.put("style", style == null ? "default" : style);
 		return m;
 	}
 
@@ -43,5 +52,16 @@ public class EasyuiController {
 		m.put("success", true);
 		String res = callback + "(" + JacksonUtil.pojoToJson(m) + ")";
 		return res;
+	}
+
+	@ResponseBody
+	@RequestMapping(path = "/datagrid_data.json")
+	public Object datagrid_data(String callback, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "10") int rows, String userName) {
+		HashMap<String, Object> m = new HashMap<>();
+		PageInfo<User> pageInfo = userService.selectPagerByExample(new UserExample(), page, rows);
+		m.put("rows", pageInfo.getList());
+		m.put("total", pageInfo.getTotal());
+		return m;
 	}
 }

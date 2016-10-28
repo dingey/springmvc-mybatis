@@ -4,8 +4,7 @@
   <resultMap id="BaseResultMap" type="com.di.model.Role" >
     <id column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
-    <result column="role_desc" property="roleDesc" jdbcType="VARCHAR" />
-    <result column="parent_role_id" property="parentRoleId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    role_id, role_name, role_desc, parent_role_id
+    role_id, role_name, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.di.model.RoleExample" >
     select
@@ -100,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.di.model.Role" >
-    insert into role (role_id, role_name, role_desc, 
-      parent_role_id)
-    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, 
-      #{parentRoleId,jdbcType=INTEGER})
+    insert into role (role_id, role_name, create_time
+      )
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.di.model.Role" >
     insert into role
@@ -114,11 +113,8 @@
       <if test="roleName != null" >
         role_name,
       </if>
-      <if test="roleDesc != null" >
-        role_desc,
-      </if>
-      <if test="parentRoleId != null" >
-        parent_role_id,
+      <if test="createTime != null" >
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -128,11 +124,8 @@
       <if test="roleName != null" >
         #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="roleDesc != null" >
-        #{roleDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="parentRoleId != null" >
-        #{parentRoleId,jdbcType=INTEGER},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -151,11 +144,8 @@
       <if test="record.roleName != null" >
         role_name = #{record.roleName,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleDesc != null" >
-        role_desc = #{record.roleDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.parentRoleId != null" >
-        parent_role_id = #{record.parentRoleId,jdbcType=INTEGER},
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -166,8 +156,7 @@
     update role
     set role_id = #{record.roleId,jdbcType=INTEGER},
       role_name = #{record.roleName,jdbcType=VARCHAR},
-      role_desc = #{record.roleDesc,jdbcType=VARCHAR},
-      parent_role_id = #{record.parentRoleId,jdbcType=INTEGER}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -178,11 +167,8 @@
       <if test="roleName != null" >
         role_name = #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="roleDesc != null" >
-        role_desc = #{roleDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="parentRoleId != null" >
-        parent_role_id = #{parentRoleId,jdbcType=INTEGER},
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where role_id = #{roleId,jdbcType=INTEGER}
@@ -190,8 +176,7 @@
   <update id="updateByPrimaryKey" parameterType="com.di.model.Role" >
     update role
     set role_name = #{roleName,jdbcType=VARCHAR},
-      role_desc = #{roleDesc,jdbcType=VARCHAR},
-      parent_role_id = #{parentRoleId,jdbcType=INTEGER}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
 </mapper>

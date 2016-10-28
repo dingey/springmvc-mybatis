@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.di.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.di.model.User" >
-    <id column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+<mapper namespace="com.di.mapper.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.di.model.Permission" >
+    <id column="permission_id" property="permissionId" jdbcType="INTEGER" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,16 +65,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, user_name, create_time, password
+    permission_id, permission_name, create_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.di.model.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.di.model.PermissionExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from user
+    from permission
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,76 +85,67 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from user
-    where user_id = #{userId,jdbcType=INTEGER}
+    from permission
+    where permission_id = #{permissionId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
-    where user_id = #{userId,jdbcType=INTEGER}
+    delete from permission
+    where permission_id = #{permissionId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.di.model.UserExample" >
-    delete from user
+  <delete id="deleteByExample" parameterType="com.di.model.PermissionExample" >
+    delete from permission
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.di.model.User" >
-    insert into user (user_id, user_name, create_time, 
-      password)
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{password,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.di.model.Permission" >
+    insert into permission (permission_id, permission_name, create_time
+      )
+    values (#{permissionId,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.di.model.User" >
-    insert into user
+  <insert id="insertSelective" parameterType="com.di.model.Permission" >
+    insert into permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        user_id,
+      <if test="permissionId != null" >
+        permission_id,
       </if>
-      <if test="userName != null" >
-        user_name,
+      <if test="permissionName != null" >
+        permission_name,
       </if>
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="password != null" >
-        password,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+      <if test="permissionId != null" >
+        #{permissionId,jdbcType=INTEGER},
       </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
+      <if test="permissionName != null" >
+        #{permissionName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.di.model.UserExample" resultType="java.lang.Integer" >
-    select count(*) from user
+  <select id="countByExample" parameterType="com.di.model.PermissionExample" resultType="java.lang.Integer" >
+    select count(*) from permission
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update user
+    update permission
     <set >
-      <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=INTEGER},
+      <if test="record.permissionId != null" >
+        permission_id = #{record.permissionId,jdbcType=INTEGER},
       </if>
-      <if test="record.userName != null" >
-        user_name = #{record.userName,jdbcType=VARCHAR},
+      <if test="record.permissionName != null" >
+        permission_name = #{record.permissionName,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.password != null" >
-        password = #{record.password,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -163,35 +153,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update user
-    set user_id = #{record.userId,jdbcType=INTEGER},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      password = #{record.password,jdbcType=VARCHAR}
+    update permission
+    set permission_id = #{record.permissionId,jdbcType=INTEGER},
+      permission_name = #{record.permissionName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.di.model.User" >
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.di.model.Permission" >
+    update permission
     <set >
-      <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
+      <if test="permissionName != null" >
+        permission_name = #{permissionName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
     </set>
-    where user_id = #{userId,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.di.model.User" >
-    update user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      password = #{password,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.di.model.Permission" >
+    update permission
+    set permission_name = #{permissionName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where permission_id = #{permissionId,jdbcType=INTEGER}
   </update>
 </mapper>

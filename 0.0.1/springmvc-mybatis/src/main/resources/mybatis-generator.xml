@@ -14,7 +14,7 @@
 		</commentGenerator>
 		<!--数据库链接URL，用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/fm" userId="root"
+			connectionURL="jdbc:mysql://localhost:3306/test" userId="root"
 			password="root">
 		</jdbcConnection>
 		<javaTypeResolver>
@@ -41,7 +41,7 @@
 <!-- 			enableCountByExample="true" enableUpdateByExample="true" -->
 <!-- 			enableDeleteByExample="true" enableSelectByExample="true" -->
 <!-- 			selectByExampleQueryId="false"></table> -->
-		<table tableName="person" domainObjectName="Person"
+		<table tableName="permission" domainObjectName="Permission"
 			enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="false"></table>

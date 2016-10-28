@@ -33,10 +33,9 @@
 		<div data-options="region:'west',split:true" title="菜单"
 			style="min-width: 160px;max-width: 200px;">
 			<div class="easyui-accordion" data-options="fit:true,border:false">
-				<div title="Title1" style="padding: 10px;">
-				<ul>
-					<li><a href="#">a</a></li>
-					<li><a href="#" onclick="addTab('table','table.html')">table</a></li>
+				<div title="Title1" style="padding: 2px;">
+					<a href="#" class="easyui-linkbutton" style="width:100%">a</a>
+					<a href="#" class="easyui-linkbutton" style="width:100%" onclick="addTab('table','table.html')">table</a>
 				</ul>
 				</div>
 				<div title="Title2" data-options="selected:true"
@@ -52,9 +51,6 @@
 				<div title="Title2" style="padding:10px" data-options="closable:true">
 					<p>Title2</p>
 <!-- 					<iframe scrolling="yes" frameborder="0"  src="blank.html"></iframe> -->
-				</div>
-				<div title="table" style="padding:10px" data-options="closable:true">
-					<p>table</p>
 				</div>
 			</div>
 		</div>

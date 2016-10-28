@@ -1,6 +1,7 @@
 package com.di.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserExample {
@@ -234,6 +235,66 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
         public Criteria andPasswordIsNull() {
             addCriterion("password is null");
             return (Criteria) this;
@@ -301,66 +362,6 @@ public class UserExample {
 
         public Criteria andPasswordNotBetween(String value1, String value2) {
             addCriterion("password not between", value1, value2, "password");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdIsNull() {
-            addCriterion("person_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdIsNotNull() {
-            addCriterion("person_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdEqualTo(Integer value) {
-            addCriterion("person_id =", value, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdNotEqualTo(Integer value) {
-            addCriterion("person_id <>", value, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdGreaterThan(Integer value) {
-            addCriterion("person_id >", value, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("person_id >=", value, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdLessThan(Integer value) {
-            addCriterion("person_id <", value, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdLessThanOrEqualTo(Integer value) {
-            addCriterion("person_id <=", value, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdIn(List<Integer> values) {
-            addCriterion("person_id in", values, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdNotIn(List<Integer> values) {
-            addCriterion("person_id not in", values, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdBetween(Integer value1, Integer value2) {
-            addCriterion("person_id between", value1, value2, "personId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPersonIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("person_id not between", value1, value2, "personId");
             return (Criteria) this;
         }
     }

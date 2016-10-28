@@ -1,13 +1,13 @@
 package com.di.model;
 
+import java.util.Date;
+
 public class Role {
     private Integer roleId;
 
     private String roleName;
 
-    private String roleDesc;
-
-    private Integer parentRoleId;
+    private Date createTime;
 
     public Integer getRoleId() {
         return roleId;
@@ -25,19 +25,11 @@ public class Role {
         this.roleName = roleName == null ? null : roleName.trim();
     }
 
-    public String getRoleDesc() {
-        return roleDesc;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setRoleDesc(String roleDesc) {
-        this.roleDesc = roleDesc == null ? null : roleDesc.trim();
-    }
-
-    public Integer getParentRoleId() {
-        return parentRoleId;
-    }
-
-    public void setParentRoleId(Integer parentRoleId) {
-        this.parentRoleId = parentRoleId;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
