@@ -12,7 +12,7 @@
 <body style="padding: 4px;">
 	<div id="tb" style="padding: 3px">
 		<div style="margin-bottom: 5px">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="doLoad();"></a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit"
 				plain="true"></a> <a href="#" class="easyui-linkbutton"
 				iconCls="icon-save" plain="true"></a> <a href="#"
@@ -44,10 +44,18 @@
 			</tr>
 		</thead>
 	</table>
+	<div id="w" class="easyui-window" title="Modal Window" data-options="modal:true,closed:true,iconCls:'icon-save'" style="min-width:500px;min-height:200px;padding:10px;">
+		The window content.
+	</div>
 	<script type="text/javascript">
 		function doSearch() {
 			$('#tt').datagrid('load',
 					'datagrid_data.json?' + $("#query").serialize());
+		}
+		function doLoad(){
+			$("#w").load("main.html",function(){
+				$('#w').window('open');
+			})
 		}
 	</script>
 </body>
