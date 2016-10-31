@@ -10,6 +10,7 @@ import com.di.mapper.AbstractMapper;
 import com.di.mapper.UserMapper;
 import com.di.model.User;
 import com.di.model.UserExample;
+import com.di.param.UserParam;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -27,16 +28,16 @@ public class UserService extends AbstractService<User, UserExample> {
 		return userMapper;
 	}
 
-	public PageInfo<User> findPagerByBusinessObject(UserBo bo) {
+	public PageInfo<User> findPagerByUserParam(UserParam param) {
 		UserExample u = new UserExample();
 		UserExample.Criteria c = u.createCriteria();
-		if (bo.getUserId() != null) {
-			c.andUserIdEqualTo(bo.getUserId());
+		if (param.getUserId() != null) {
+			c.andUserIdEqualTo(param.getUserId());
 		}
-		if (bo.getUserName() != null) {
-			c.andUserNameLike("%" + bo.getUserName() + "%");
+		if (param.getUserName() != null) {
+			c.andUserNameLike("%" + param.getUserName() + "%");
 		}
-		PageInfo<User> pageInfo = selectPagerByExample(u, bo.getPage(), bo.getRows());
+		PageInfo<User> pageInfo = selectPagerByExample(u, param.getPage(), param.getRows());
 		return pageInfo;
 	}
 }

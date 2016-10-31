@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.di.bo.UserBo;
 import com.di.model.User;
 import com.di.model.UserExample;
+import com.di.param.UserParam;
 import com.di.service.UserService;
 import com.di.toolkit.JacksonUtil;
 import com.github.pagehelper.PageInfo;
@@ -57,9 +58,9 @@ public class EasyuiController {
 
 	@ResponseBody
 	@RequestMapping(path = "/datagrid_data.json")
-	public Object datagrid_data(UserBo bo) {
+	public Object datagrid_data(UserParam param) {
 		HashMap<String, Object> m = new HashMap<>();
-		PageInfo<User> pageInfo = userService.findPagerByBusinessObject(bo);
+		PageInfo<User> pageInfo = userService.findPagerByUserParam(param);
 		m.put("rows", pageInfo.getList());
 		m.put("total", pageInfo.getTotal());
 		return m;
