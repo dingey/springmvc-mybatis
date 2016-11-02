@@ -20,7 +20,5 @@ public class UserTest {
 
 	@Test
 	public void testGetAcccountById() {
-		User u=userService.selectUserByUsername("a");
-		System.out.println(u.getUserName());
 	}
 }
