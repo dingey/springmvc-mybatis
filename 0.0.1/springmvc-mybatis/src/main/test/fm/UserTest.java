@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.di.model.User;
+import com.di.model.UserExample;
 import com.di.service.UserService;
 
 public class UserTest {
@@ -20,5 +20,6 @@ public class UserTest {
 
 	@Test
 	public void testGetAcccountById() {
+		userService.selectByExample(new UserExample());
 	}
 }
