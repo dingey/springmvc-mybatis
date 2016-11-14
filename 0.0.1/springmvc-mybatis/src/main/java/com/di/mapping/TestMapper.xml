@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.di.mapper.TestMapper" >
+  <resultMap id="BaseResultMap" type="com.di.model.Test" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="paying_id" property="payingId" jdbcType="VARCHAR" />
+    <result column="refund_id" property="refundId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="opp_type" property="oppType" jdbcType="INTEGER" />
+    <result column="opp_code" property="oppCode" jdbcType="VARCHAR" />
+    <result column="opp_fee" property="oppFee" jdbcType="INTEGER" />
+    <result column="opp_commit" property="oppCommit" jdbcType="VARCHAR" />
+    <result column="opp_return" property="oppReturn" jdbcType="VARCHAR" />
+    <result column="opp_notify" property="oppNotify" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, paying_id, refund_id, status, opp_type, opp_code, opp_fee, opp_commit, opp_return, 
+    opp_notify, created_at, updated_at
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.di.model.TestExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from test
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from test
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.di.model.TestExample" >
+    delete from test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.di.model.Test" >
+    insert into test (id, paying_id, refund_id, 
+      status, opp_type, opp_code, 
+      opp_fee, opp_commit, opp_return, 
+      opp_notify, created_at, updated_at
+      )
+    values (#{id,jdbcType=BIGINT}, #{payingId,jdbcType=VARCHAR}, #{refundId,jdbcType=BIGINT}, 
+      #{status,jdbcType=BIT}, #{oppType,jdbcType=INTEGER}, #{oppCode,jdbcType=VARCHAR}, 
+      #{oppFee,jdbcType=INTEGER}, #{oppCommit,jdbcType=VARCHAR}, #{oppReturn,jdbcType=VARCHAR}, 
+      #{oppNotify,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.di.model.Test" >
+    insert into test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="payingId != null" >
+        paying_id,
+      </if>
+      <if test="refundId != null" >
+        refund_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="oppType != null" >
+        opp_type,
+      </if>
+      <if test="oppCode != null" >
+        opp_code,
+      </if>
+      <if test="oppFee != null" >
+        opp_fee,
+      </if>
+      <if test="oppCommit != null" >
+        opp_commit,
+      </if>
+      <if test="oppReturn != null" >
+        opp_return,
+      </if>
+      <if test="oppNotify != null" >
+        opp_notify,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="payingId != null" >
+        #{payingId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundId != null" >
+        #{refundId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="oppType != null" >
+        #{oppType,jdbcType=INTEGER},
+      </if>
+      <if test="oppCode != null" >
+        #{oppCode,jdbcType=VARCHAR},
+      </if>
+      <if test="oppFee != null" >
+        #{oppFee,jdbcType=INTEGER},
+      </if>
+      <if test="oppCommit != null" >
+        #{oppCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="oppReturn != null" >
+        #{oppReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="oppNotify != null" >
+        #{oppNotify,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.di.model.TestExample" resultType="java.lang.Integer" >
+    select count(*) from test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update test
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.payingId != null" >
+        paying_id = #{record.payingId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundId != null" >
+        refund_id = #{record.refundId,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.oppType != null" >
+        opp_type = #{record.oppType,jdbcType=INTEGER},
+      </if>
+      <if test="record.oppCode != null" >
+        opp_code = #{record.oppCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oppFee != null" >
+        opp_fee = #{record.oppFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.oppCommit != null" >
+        opp_commit = #{record.oppCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oppReturn != null" >
+        opp_return = #{record.oppReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oppNotify != null" >
+        opp_notify = #{record.oppNotify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null" >
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null" >
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update test
+    set id = #{record.id,jdbcType=BIGINT},
+      paying_id = #{record.payingId,jdbcType=VARCHAR},
+      refund_id = #{record.refundId,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=BIT},
+      opp_type = #{record.oppType,jdbcType=INTEGER},
+      opp_code = #{record.oppCode,jdbcType=VARCHAR},
+      opp_fee = #{record.oppFee,jdbcType=INTEGER},
+      opp_commit = #{record.oppCommit,jdbcType=VARCHAR},
+      opp_return = #{record.oppReturn,jdbcType=VARCHAR},
+      opp_notify = #{record.oppNotify,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.di.model.Test" >
+    update test
+    <set >
+      <if test="payingId != null" >
+        paying_id = #{payingId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundId != null" >
+        refund_id = #{refundId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="oppType != null" >
+        opp_type = #{oppType,jdbcType=INTEGER},
+      </if>
+      <if test="oppCode != null" >
+        opp_code = #{oppCode,jdbcType=VARCHAR},
+      </if>
+      <if test="oppFee != null" >
+        opp_fee = #{oppFee,jdbcType=INTEGER},
+      </if>
+      <if test="oppCommit != null" >
+        opp_commit = #{oppCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="oppReturn != null" >
+        opp_return = #{oppReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="oppNotify != null" >
+        opp_notify = #{oppNotify,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.di.model.Test" >
+    update test
+    set paying_id = #{payingId,jdbcType=VARCHAR},
+      refund_id = #{refundId,jdbcType=BIGINT},
+      status = #{status,jdbcType=BIT},
+      opp_type = #{oppType,jdbcType=INTEGER},
+      opp_code = #{oppCode,jdbcType=VARCHAR},
+      opp_fee = #{oppFee,jdbcType=INTEGER},
+      opp_commit = #{oppCommit,jdbcType=VARCHAR},
+      opp_return = #{oppReturn,jdbcType=VARCHAR},
+      opp_notify = #{oppNotify,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

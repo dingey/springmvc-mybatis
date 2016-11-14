@@ -5,7 +5,7 @@
 <generatorConfiguration>
 	<!-- 数据库驱动 -->
 	<classPathEntry
-		location="C:\Users\di\workspace\pub\WebContent\WEB-INF\lib\mysql-connector-java-5.1.23-bin.jar" />
+		location="C:\Users\di\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar" />
 	<context id="DB2Tables" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<property name="suppressDate" value="true" />
@@ -14,7 +14,7 @@
 		</commentGenerator>
 		<!--数据库链接URL，用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/test" userId="root"
+			connectionURL="jdbc:mysql://localhost:3306/dev_payment" userId="root"
 			password="root">
 		</jdbcConnection>
 		<javaTypeResolver>
@@ -37,19 +37,19 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- 要生成哪些表 -->
-<!-- 		<table tableName="module" domainObjectName="Module" -->
-<!-- 			enableCountByExample="true" enableUpdateByExample="true" -->
-<!-- 			enableDeleteByExample="true" enableSelectByExample="true" -->
-<!-- 			selectByExampleQueryId="false"></table> -->
-		<table tableName="permission" domainObjectName="Permission"
-			enableCountByExample="true" enableUpdateByExample="true"
-			enableDeleteByExample="true" enableSelectByExample="true"
-			selectByExampleQueryId="false"></table>
-		<table tableName="role" domainObjectName="Role"
-			enableCountByExample="true" enableUpdateByExample="true"
-			enableDeleteByExample="true" enableSelectByExample="true"
-			selectByExampleQueryId="false"></table>
-		<table tableName="user" domainObjectName="User"
+		<!-- <table tableName="module" domainObjectName="Module" -->
+		<!-- enableCountByExample="true" enableUpdateByExample="true" -->
+		<!-- enableDeleteByExample="true" enableSelectByExample="true" -->
+		<!-- selectByExampleQueryId="false"></table> -->
+		<!-- <table tableName="permission" domainObjectName="Permission" -->
+		<!-- enableCountByExample="true" enableUpdateByExample="true" -->
+		<!-- enableDeleteByExample="true" enableSelectByExample="true" -->
+		<!-- selectByExampleQueryId="false"></table> -->
+		<!-- <table tableName="role" domainObjectName="Role" -->
+		<!-- enableCountByExample="true" enableUpdateByExample="true" -->
+		<!-- enableDeleteByExample="true" enableSelectByExample="true" -->
+		<!-- selectByExampleQueryId="false"></table> -->
+		<table tableName="test" domainObjectName="Test"
 			enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="false"></table>
