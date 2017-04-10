@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.di.mapper.UserMapper">
+	<insert id="insert" parameterType="com.di.model.User"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into user (id,
+		user_name, create_time,
+		password, sex)
+		values (#{id}, #{userName},
+		#{createTime},
+		#{password}, #{sex})
+	</insert>
+	<update id="update" parameterType="com.di.model.User">
+		update user
+		<set>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="sex != null">
+				sex = #{sex},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	<delete id="delete" parameterType="java.lang.Long">
+		update user set del=1 where id= #{id}
+	</delete>
+	<select id="get" resultType="User">
+		select * from user
+		where id = #{id}
+	</select>
+	<select id="findList" resultType="User">
+		select * from user where del=0
+	</select>
+</mapper>
