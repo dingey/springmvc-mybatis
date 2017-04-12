@@ -1,5 +1,6 @@
 package com.test;
 
+import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import junit.framework.TestCase;
@@ -19,4 +20,7 @@ public class AbstractTest extends TestCase {
 		context = new ClassPathXmlApplicationContext("classpath:spring/spring-context.xml");
 	}
 
+	@Test
+	public void test() {
+	}
 }

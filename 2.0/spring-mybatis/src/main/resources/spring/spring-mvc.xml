@@ -57,7 +57,7 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
 		<property name="suffix" value=".ftl" />
-		<property name="cache" value="true" />
+		<property name="cache" value="false" />
 		<property name="exposeSessionAttributes" value="true" />
 		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSpringMacroHelpers" value="true" />
