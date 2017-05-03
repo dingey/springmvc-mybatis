@@ -23,6 +23,8 @@
 		<property name="locations">
 			<list>
 				<value>file:${CONFIG_DIR_PATH}/sys.properties</value>
+				<value>file:${CONFIG_DIR_PATH}/jdbc.properties</value>
+				<value>file:${CONFIG_DIR_PATH}/xmemcached.properties</value>
 			</list>
 		</property>
 	</bean>
