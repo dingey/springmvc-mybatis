@@ -16,7 +16,7 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
+
 	<bean name="springPropertiesUtil" class="com.di.util.SpringPropertiesUtil">
 		<property name="order" value="2" />
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -37,6 +37,7 @@
 		</property>
 	</bean>
 
+	<!-- <import resource="spring-memcached.xml" /> -->
 	<import resource="spring-ehcache.xml" />
 	<import resource="spring-mybatis.xml" />
 	<import resource="spring-shiro.xml" />

@@ -11,37 +11,39 @@
         http://www.springframework.org/schema/cache/spring-cache.xsd ">
 
 	<cache:annotation-driven cache-manager="cacheManager" />
-	<bean id="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">
-		<constructor-arg>
-			<list>
-				<bean class="java.net.InetSocketAddress">
-					<constructor-arg>
-						<value>${memcached.server1.host}</value>
-					</constructor-arg>
-					<constructor-arg>
-						<value>${memcached.server1.port}</value>
-					</constructor-arg>
+
+	<!-- 这里的cacheManager 缓存名字是默认的，要改，就参考我spring+ehcache 的配置改 -->
+	<bean name="cacheManager" class="com.google.code.ssm.spring.SSMCacheManager">
+		<property name="caches">
+			<set>
+				<bean class="com.google.code.ssm.spring.SSMCache">
+					<constructor-arg name="cache" index="0" ref="defaultCache" />
+					<!-- 默认 5 minutes -->
+					<constructor-arg name="expiration" index="1" value="300" />
+					<!-- @CacheEvict(..., "allEntries" = true) won't work because allowClear 
+						is false, so we won't flush accidentally all entries from memcached instance -->
+					<!-- 这里表示我们不会全部清除所有缓存，使用ehcache 的时候我们就会发现， @CacheEvict(..., "allEntries" 
+						= true) 它是按 配置的缓存名 就行清除的，而memcached 我们是通过namespace 进行清除的，还有指定时间，这是我最喜欢的了~。~ -->
+					<constructor-arg name="allowClear" index="2" value="false" />
 				</bean>
-			</list>
-		</constructor-arg>
-		<constructor-arg>
-			<list>
-				<value>${memcached.server1.weight}</value>
-			</list>
-		</constructor-arg>
-		<property name="commandFactory">
-			<bean class="net.rubyeye.xmemcached.command.TextCommandFactory" />
+			</set>
 		</property>
-		<property name="sessionLocator">
-			<bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator" />
-		</property>
-		<property name="transcoder">
-			<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
-		</property>
-		<property name="connectionPoolSize" value="${memcached.connectionPoolSize}" />
-		<property name="failureMode" value="${memcached.failureMode}" />
 	</bean>
-	<!-- Use factory bean to build memcached client -->
-	<bean id="memcachedClient" factory-bean="memcachedClientBuilder"
-		factory-method="build" destroy-method="shutdown" />
+	<bean name="defaultCache" class="com.google.code.ssm.CacheFactory">
+		<property name="cacheName" value="defaultCache" />
+		<property name="cacheClientFactory">
+			<bean name="cacheClientFactory"
+				class="com.google.code.ssm.providers.xmemcached.MemcacheClientFactoryImpl" />
+		</property>
+		<property name="addressProvider">
+			<bean class="com.google.code.ssm.config.DefaultAddressProvider">
+				<property name="address" value="${memcached.address}" />
+			</bean>
+		</property>
+		<property name="configuration">
+			<bean class="com.google.code.ssm.providers.CacheConfiguration">
+				<property name="consistentHashing" value="true" />
+			</bean>
+		</property>
+	</bean>
 </beans> 

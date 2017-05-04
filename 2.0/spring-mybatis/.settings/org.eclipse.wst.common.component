@@ -4,10 +4,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="toolkit-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/toolkit/toolkit">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="java-output-path" value="/spring-mybatis/target/classes"/>
-        <property name="context-root" value="springmvc-mybatis"/>
+        <property name="context-root" value="spring-mybatis"/>
     </wb-module>
 </project-modules>
